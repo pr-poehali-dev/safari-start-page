@@ -52,9 +52,6 @@ const Index = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 border-0 bg-transparent text-lg focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400"
             />
-            <button className="p-2 hover:bg-gray-100/50 rounded-lg transition-all duration-200">
-              <Icon name="Mic" size={20} className="text-gray-500" />
-            </button>
           </div>
         </div>
 
