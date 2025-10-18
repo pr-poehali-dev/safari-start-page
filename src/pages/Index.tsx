@@ -43,7 +43,7 @@ const Index = () => {
         
         <div className="relative mb-12">
           <div className="absolute inset-0 bg-white/40 backdrop-blur-xl rounded-2xl" />
-          <div className="relative flex items-center gap-3 p-4">
+          <div className="relative flex items-center gap-3 p-4 py-0 px-[342px]">
             <Icon name="Search" size={20} className="text-gray-500 ml-2" />
             <Input
               type="text"
@@ -60,7 +60,7 @@ const Index = () => {
 
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl shadow-lg">
+            <div className="relative flex items-center gap-3 p-4 py-0 px-[252px]">
               🧭
             </div>
             <h1 className="text-3xl font-light text-gray-800">Safari</h1>
