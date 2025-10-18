@@ -8,8 +8,10 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [historySearch, setHistorySearch] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isPrivateMode, setIsPrivateMode] = useState(false);
   const [openTabs, setOpenTabs] = useState([
     { id: 1, title: 'Добро пожаловать', url: 'apple.com', favicon: '🍎' },
     { id: 2, title: 'GitHub', url: 'github.com', favicon: '💻' },
@@ -38,6 +40,26 @@ const Index = () => {
   };
 
   const activeTab = openTabs.find(tab => tab.id === activeTabId);
+
+  const browsingHistory = [
+    { id: 1, title: 'Apple - официальный сайт', url: 'apple.com', time: 'Сегодня, 14:30', favicon: '🍎' },
+    { id: 2, title: 'GitHub: Where the world builds software', url: 'github.com', time: 'Сегодня, 13:45', favicon: '💻' },
+    { id: 3, title: 'YouTube - Смотреть видео', url: 'youtube.com', time: 'Сегодня, 12:20', favicon: '🎥' },
+    { id: 4, title: 'Google', url: 'google.com', time: 'Сегодня, 11:05', favicon: '🔍' },
+    { id: 5, title: 'Stack Overflow - Where Developers Learn', url: 'stackoverflow.com', time: 'Вчера, 18:30', favicon: '📚' },
+    { id: 6, title: 'Medium - читать статьи', url: 'medium.com', time: 'Вчера, 16:15', favicon: '📝' },
+    { id: 7, title: 'Twitter / X', url: 'twitter.com', time: 'Вчера, 10:45', favicon: '🐦' },
+    { id: 8, title: 'Netflix - смотреть фильмы', url: 'netflix.com', time: '2 дня назад', favicon: '🎬' },
+  ];
+
+  const filteredHistory = browsingHistory.filter(item => 
+    item.title.toLowerCase().includes(historySearch.toLowerCase()) ||
+    item.url.toLowerCase().includes(historySearch.toLowerCase())
+  );
+
+  const clearHistory = () => {
+    setHistorySearch('');
+  };
 
   const bookmarks = [
     { name: 'Apple', url: 'apple.com', icon: '🍎' },
@@ -120,6 +142,14 @@ const Index = () => {
                         }`}
                       >
                         Чтение
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="history"
+                        className={`rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-transparent px-6 py-3 transition-colors ${
+                          isDarkMode ? 'text-gray-300 data-[state=active]:text-blue-400' : 'text-gray-700'
+                        }`}
+                      >
+                        История
                       </TabsTrigger>
                     </TabsList>
 
@@ -219,6 +249,93 @@ const Index = () => {
                         </div>
                       </ScrollArea>
                     </TabsContent>
+
+                    <TabsContent value="history" className="p-4 m-0">
+                      <div className="mb-4">
+                        <div className="relative">
+                          <Icon name="Search" size={16} className={`absolute left-3 top-1/2 -translate-y-1/2 ${
+                            isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                          }`} />
+                          <Input
+                            type="text"
+                            placeholder="Поиск в истории"
+                            value={historySearch}
+                            onChange={(e) => setHistorySearch(e.target.value)}
+                            className={`pl-10 ${
+                              isDarkMode 
+                                ? 'bg-gray-700 border-gray-600 text-gray-200 placeholder:text-gray-400' 
+                                : 'bg-gray-50 border-gray-200'
+                            }`}
+                          />
+                        </div>
+                      </div>
+                      <ScrollArea className="h-[calc(100vh-200px)]">
+                        {isPrivateMode ? (
+                          <div className="text-center py-8">
+                            <div className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center ${
+                              isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
+                            }`}>
+                              <Icon name="EyeOff" size={28} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                            </div>
+                            <p className={`font-medium mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+                              Приватный режим включён
+                            </p>
+                            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              История не сохраняется
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            {filteredHistory.length > 0 ? (
+                              <>
+                                {filteredHistory.map((item) => (
+                                  <div
+                                    key={item.id}
+                                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors group ${
+                                      isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                                    }`}
+                                  >
+                                    <span className="text-xl">{item.favicon}</span>
+                                    <div className="flex-1 min-w-0">
+                                      <p className={`font-medium text-sm truncate transition-colors ${
+                                        isDarkMode ? 'text-gray-200' : 'text-gray-800'
+                                      }`}>{item.title}</p>
+                                      <p className={`text-xs truncate transition-colors ${
+                                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                                      }`}>{item.url}</p>
+                                      <p className={`text-xs mt-0.5 transition-colors ${
+                                        isDarkMode ? 'text-gray-500' : 'text-gray-400'
+                                      }`}>{item.time}</p>
+                                    </div>
+                                    <button className={`opacity-0 group-hover:opacity-100 transition-opacity rounded p-1 ${
+                                      isDarkMode ? 'hover:bg-gray-600 text-gray-400' : 'hover:bg-gray-200 text-gray-600'
+                                    }`}>
+                                      <Icon name="X" size={14} />
+                                    </button>
+                                  </div>
+                                ))}
+                                <button
+                                  onClick={clearHistory}
+                                  className={`w-full p-3 rounded-lg transition-colors text-sm font-medium ${
+                                    isDarkMode 
+                                      ? 'text-red-400 hover:bg-red-900/20' 
+                                      : 'text-red-600 hover:bg-red-50'
+                                  }`}
+                                >
+                                  Очистить историю
+                                </button>
+                              </>
+                            ) : (
+                              <div className="text-center py-8">
+                                <p className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>
+                                  Ничего не найдено
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </ScrollArea>
+                    </TabsContent>
                   </Tabs>
                 </SheetContent>
               </Sheet>
@@ -242,10 +359,14 @@ const Index = () => {
                 isDarkMode ? 'bg-gray-700/60' : 'bg-gray-100/80'
               }`} />
               <div className="relative flex items-center gap-2 px-4 py-2">
-                <Icon name="Lock" size={14} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                {isPrivateMode ? (
+                  <Icon name="EyeOff" size={14} className={isDarkMode ? 'text-purple-400' : 'text-purple-600'} />
+                ) : (
+                  <Icon name="Lock" size={14} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                )}
                 <Input
                   type="text"
-                  placeholder={activeTab?.url || 'Поиск или введите адрес сайта'}
+                  placeholder={activeTab?.url || (isPrivateMode ? 'Приватный просмотр' : 'Поиск или введите адрес сайта')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className={`flex-1 border-0 bg-transparent text-sm focus-visible:ring-0 focus-visible:ring-offset-0 h-auto p-0 ${
@@ -284,6 +405,16 @@ const Index = () => {
             >
               <Icon name={isDarkMode ? "Sun" : "Moon"} size={18} />
             </button>
+            <button 
+              onClick={() => setIsPrivateMode(!isPrivateMode)}
+              className={`p-1.5 rounded-lg transition-colors ${
+                isPrivateMode 
+                  ? 'bg-purple-600 text-white hover:bg-purple-700'
+                  : isDarkMode ? 'hover:bg-gray-700 text-gray-300' : 'hover:bg-gray-100 text-gray-600'
+              }`}
+            >
+              <Icon name="EyeOff" size={18} />
+            </button>
             <button className={`p-1.5 rounded-lg transition-colors ${
               isDarkMode ? 'hover:bg-gray-700 text-gray-300' : 'hover:bg-gray-100 text-gray-600'
             }`}>
@@ -296,12 +427,24 @@ const Index = () => {
       <div className="flex-1 overflow-auto">
         <div className="max-w-6xl mx-auto p-8 space-y-8 animate-fade-in">
           <div className="text-center mb-12">
+            {isPrivateMode && (
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 ${
+                isDarkMode ? 'bg-purple-900/40 text-purple-300' : 'bg-purple-100 text-purple-700'
+              }`}>
+                <Icon name="EyeOff" size={16} />
+                <span className="text-sm font-medium">Приватный просмотр</span>
+              </div>
+            )}
             <h1 className={`text-4xl font-light mb-2 transition-colors ${
               isDarkMode ? 'text-gray-100' : 'text-gray-800'
             }`}>Safari</h1>
             <p className={`transition-colors ${
               isDarkMode ? 'text-gray-400' : 'text-gray-500'
-            }`}>Начните вводить адрес или искать в интернете</p>
+            }`}>
+              {isPrivateMode 
+                ? 'Safari не сохранит историю и данные' 
+                : 'Начните вводить адрес или искать в интернете'}
+            </p>
           </div>
 
           <div>
