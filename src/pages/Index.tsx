@@ -41,24 +41,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 p-8">
       <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
         
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl shadow-lg">
-              🧭
-            </div>
-            <h1 className="text-3xl font-light text-gray-800">Safari</h1>
-          </div>
-          <div className="flex gap-2">
-            <button className="p-2 hover:bg-white/60 rounded-lg transition-all duration-200">
-              <Icon name="Settings" size={20} className="text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-white/60 rounded-lg transition-all duration-200">
-              <Icon name="User" size={20} className="text-gray-600" />
-            </button>
-          </div>
-        </div>
-
-        <div className="relative">
+        <div className="relative mb-12">
           <div className="absolute inset-0 bg-white/40 backdrop-blur-xl rounded-2xl" />
           <div className="relative flex items-center gap-3 p-4">
             <Icon name="Search" size={20} className="text-gray-500 ml-2" />
@@ -71,6 +54,23 @@ const Index = () => {
             />
             <button className="p-2 hover:bg-gray-100/50 rounded-lg transition-all duration-200">
               <Icon name="Mic" size={20} className="text-gray-500" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl shadow-lg">
+              🧭
+            </div>
+            <h1 className="text-3xl font-light text-gray-800">Safari</h1>
+          </div>
+          <div className="flex gap-2">
+            <button className="p-2 hover:bg-white/60 rounded-lg transition-all duration-200">
+              <Icon name="Settings" size={20} className="text-gray-600" />
+            </button>
+            <button className="p-2 hover:bg-white/60 rounded-lg transition-all duration-200">
+              <Icon name="User" size={20} className="text-gray-600" />
             </button>
           </div>
         </div>
