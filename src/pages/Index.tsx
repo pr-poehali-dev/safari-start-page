@@ -55,13 +55,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="relative flex items-center gap-3 p-4 py-0 px-[252px]">
-              🧭
-            </div>
-            <h1 className="text-3xl font-light text-gray-800">Safari</h1>
-          </div>
+        <div className="flex items-center justify-end mb-8">
           <div className="flex gap-2">
             <button className="p-2 hover:bg-white/60 rounded-lg transition-all duration-200">
               <Icon name="Settings" size={20} className="text-gray-600" />
